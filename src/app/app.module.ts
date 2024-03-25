@@ -10,13 +10,17 @@ import {MatButton} from "@angular/material/button";
 import { BlogCardComponent } from './components/blog-card/blog-card.component';
 import {HttpClientModule} from "@angular/common/http";
 import { CardElementComponent } from './components/card-element/card-element.component';
+import {Routes} from "@angular/router";
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     BlogCardComponent,
-    CardElementComponent
+    CardElementComponent,
+    PostDetailComponent
   ],
   imports: [
     AppMaterialModule,

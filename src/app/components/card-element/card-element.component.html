@@ -1,8 +1,9 @@
-<div class="card w-50 border-primary mx-auto my-3">
+<div class="card shadow-lg w-50 border-primary mx-auto my-3">
   <div class="card-body">
     <h5 class="card-title">{{ post.title }}</h5>
     <p class="card-text">{{ post.description }}</p>
     <p class="text-secondary">{{ post.category }}</p>
-    <a href="#" class="btn btn-primary">Read More</a>
+    <mat-divider class="mb-2"></mat-divider>
+    <a href="#" class="btn btn-primary btn-position-right" routerLink="post-detail">Read More</a>
   </div>
 </div>
