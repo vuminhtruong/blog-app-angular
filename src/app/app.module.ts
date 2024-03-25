@@ -12,6 +12,9 @@ import {HttpClientModule} from "@angular/common/http";
 import { CardElementComponent } from './components/card-element/card-element.component';
 import {Routes} from "@angular/router";
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -20,13 +23,16 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
     NavBarComponent,
     BlogCardComponent,
     CardElementComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     AppMaterialModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [
     provideClientHydration(),

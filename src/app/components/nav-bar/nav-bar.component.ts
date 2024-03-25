@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faAdd } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,12 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-
-  login() {
-
-  }
-
-  register() {
-
-  }
+  iconAdd = faAdd;
 }
