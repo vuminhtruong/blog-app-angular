@@ -1,0 +1,17 @@
+<ng-template #loading>
+  <div class="d-flex justify-content-center mt-5">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #noData>
+  <h3 class="d-flex justify-content-center font-monospace mt-5">No data found</h3>
+</ng-template>
+
+<ng-container *ngIf="posts$ | async as posts; else loading">
+  <ng-container *ngIf="posts.length > 0; else noData">
+    @for (post of posts; track post) {
+      <app-card-element [post]="post"></app-card-element>
+    }
+  </ng-container>
+</ng-container>

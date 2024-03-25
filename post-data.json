@@ -1,0 +1,74 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "content": "This is the content of post 1.",
+      "description": "Description for post 1.",
+      "title": "Post Title 1",
+      "category": 1
+    },
+    {
+      "id": 2,
+      "content": "This is the content of post 2.",
+      "description": "Description for post 2.",
+      "title": "Post Title 2",
+      "category": 2
+    },
+    {
+      "id": 3,
+      "content": "This is the content of post 3.",
+      "description": "Description for post 3.",
+      "title": "Post Title 3",
+      "category": 3
+    },
+    {
+      "id": 4,
+      "content": "This is the content of post 4.",
+      "description": "Description for post 4.",
+      "title": "Post Title 4",
+      "category": 4
+    },
+    {
+      "id": 5,
+      "content": "This is the content of post 5.",
+      "description": "Description for post 5.",
+      "title": "Post Title 5",
+      "category": 3
+    },
+    {
+      "id": 6,
+      "content": "This is the content of post 6.",
+      "description": "Description for post 6.",
+      "title": "Post Title 6",
+      "category": 2
+    },
+    {
+      "id": 7,
+      "content": "This is the content of post 7.",
+      "description": "Description for post 7.",
+      "title": "Post Title 7",
+      "category": 2
+    },
+    {
+      "id": 8,
+      "content": "This is the content of post 8.",
+      "description": "Description for post 8.",
+      "title": "Post Title 8",
+      "category": 1
+    },
+    {
+      "id": 9,
+      "content": "This is the content of post 9.",
+      "description": "Description for post 9.",
+      "title": "Post Title 9",
+      "category": 2
+    },
+    {
+      "id": 10,
+      "content": "This is the content of post 10.",
+      "description": "Description for post 10.",
+      "title": "Post Title 10",
+      "category": 4
+    }
+  ]
+}
