@@ -10,7 +10,11 @@ export class PostService {
   private baseURL: String = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
 
-  loadPosts(): Observable<Post[]> {
+  getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseURL + '/posts');
+  }
+
+  getPostById(id: String): Observable<Post> {
+    return this.http.get<Post>(this.baseURL + '/posts/' + id);
   }
 }

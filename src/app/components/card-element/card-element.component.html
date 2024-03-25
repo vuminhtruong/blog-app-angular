@@ -4,6 +4,6 @@
     <p class="card-text">{{ post.description }}</p>
     <p class="text-secondary">{{ post.category }}</p>
     <mat-divider class="mb-2"></mat-divider>
-    <a href="#" class="btn btn-primary btn-position-right" routerLink="post-detail">Read More</a>
+    <a href="#" class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]">Read More</a>
   </div>
 </div>

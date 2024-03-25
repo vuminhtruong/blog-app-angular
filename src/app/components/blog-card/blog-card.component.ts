@@ -15,6 +15,6 @@ export class BlogCardComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.posts$ = this.postService.loadPosts();
+    this.posts$ = this.postService.getAllPosts();
   }
 }
