@@ -1,0 +1,13 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-button class="example-button">Blog App</button>
+    <ng-container *ngIf="false; else guest">
+
+    </ng-container>
+    <ng-template #guest>
+      <span class="spacer"></span>
+      <button mat-raised-button (click)="login()" class="navbar-button">Login</button>
+      <button mat-raised-button (click)="register()" class="navbar-button">Register</button>
+    </ng-template>
+  </mat-toolbar-row>
+</mat-toolbar>
