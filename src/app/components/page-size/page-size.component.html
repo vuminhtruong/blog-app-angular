@@ -1,7 +1,6 @@
 <div class="w-25 mx-auto">
-  <select class="form-select" id="form-select" aria-label="Default select example">
-    <option selected>Select posts per page</option>
-    <option value="5">5</option>
+  <select #pageSize (change)="onSelected(pageSize.value)" class="form-select" id="form-select" aria-label="Default select example">
+    <option selected value="5">5</option>
     <option value="8">8</option>
     <option value="10">10</option>
   </select>

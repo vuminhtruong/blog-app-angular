@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-page-size',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './page-size.component.css'
 })
 export class PageSizeComponent {
+  @Output()
+  sizeValue = new EventEmitter<string>();
 
+
+  onSelected(value: string) {
+    this.sizeValue.emit(value);
+  }
 }

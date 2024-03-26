@@ -7,14 +7,24 @@ import {Post} from "../model/post";
   providedIn: 'root'
 })
 export class PostService {
-  private baseURL: String = 'http://localhost:3000';
+  private baseURL: string = 'http://localhost:8080/api/posts';
   constructor(private http: HttpClient) {}
 
-  getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.baseURL + '/posts');
+  getAllPostsWithOutPageSize(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.baseURL + '/all-post');
   }
 
-  getPostById(id: String): Observable<Post> {
-    return this.http.get<Post>(this.baseURL + '/posts/' + id);
+  getAllPostsWithDefaultPageSize() {
+    return this.http.get<Post[]>(this.baseURL);
   }
+
+  getPostsWithPageSize(pageSize: string, pageNo: string, sortBy: string) {
+    return this.http.get<Post[]>(this.baseURL + '?pageSize=' + pageSize + '&pageNo=' + pageNo + '&sortBy=' + sortBy);
+  }
+
+
+  getPostById(id: String): Observable<Post> {
+    return this.http.get<Post>(this.baseURL + '/'+ id);
+  }
+
 }

@@ -8,12 +8,14 @@
   <h3 class="d-flex justify-content-center font-monospace mt-5">No data found</h3>
 </ng-template>
 
-<ng-container *ngIf="posts$ | async as posts; else loading">
-  <ng-container *ngIf="posts.length > 0; else noData">
-    <app-pagination totalPosts="{{posts.length / 5}}"></app-pagination>
-    <app-page-size></app-page-size>
-    @for (post of posts; track post) {
-      <app-card-element [post]="post"></app-card-element>
-    }
+<ng-container *ngIf="allPosts$ | async as allPosts; else loading">
+  <ng-container *ngIf="allPosts.length > 0; else noData">
+    <app-pagination (page)="setPageNumber($event)" [pageSize]="pageSize" [postLength]="allPosts.length.toString()"></app-pagination>
+    <app-page-size (sizeValue)="getPageSize($event)"></app-page-size>
+    <ng-container *ngIf="posts$ | async as posts; else loading">
+      @for (post of posts; track post) {
+        <app-card-element [post]="post"></app-card-element>
+      }
+    </ng-container>
   </ng-container>
 </ng-container>
