@@ -18,6 +18,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { CommentComponent } from './components/comment/comment.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { PageSizeComponent } from './components/page-size/page-size.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     RegisterComponent,
     CommentComponent,
     PaginationComponent,
+    PageSizeComponent,
   ],
   imports: [
     AppMaterialModule,

@@ -11,6 +11,7 @@
 <ng-container *ngIf="posts$ | async as posts; else loading">
   <ng-container *ngIf="posts.length > 0; else noData">
     <app-pagination totalPosts="{{posts.length / 5}}"></app-pagination>
+    <app-page-size></app-page-size>
     @for (post of posts; track post) {
       <app-card-element [post]="post"></app-card-element>
     }
