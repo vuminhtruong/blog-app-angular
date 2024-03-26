@@ -17,6 +17,7 @@ import { RegisterComponent } from './components/register/register.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { CommentComponent } from './components/comment/comment.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     RegisterComponent,
     CommentComponent,
+    PaginationComponent,
   ],
   imports: [
     AppMaterialModule,

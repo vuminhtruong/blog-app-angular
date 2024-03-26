@@ -12,6 +12,7 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {MatDivider} from "@angular/material/divider";
+import {MatPaginator} from "@angular/material/paginator";
 
 const materialModules = [
   MatToolbarModule,
@@ -23,7 +24,8 @@ const materialModules = [
   MatDivider,
   MatCardActions,
   MatCardTitle,
-  MatCardSubtitle
+  MatCardSubtitle,
+  MatPaginator
 ];
 
 @NgModule({

@@ -1,0 +1,13 @@
+<nav aria-label="..." class="mt-3">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="firstPage" (click)="onPrevious()">
+      <a class="page-link" href="#" >Previous</a>
+    </li>
+    @for(page of pagePaginator; track page) {
+      <li [class.active]="isActive(page.toString())" (click)="setActive(page.toString())" class="page-item"><a class="page-link" href="#">{{page}}</a></li>
+    }
+    <li class="page-item" [class.disabled]="lastPage">
+      <a class="page-link" href="#" (click)="onNext()">Next</a>
+    </li>
+  </ul>
+</nav>
