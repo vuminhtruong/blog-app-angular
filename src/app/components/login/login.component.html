@@ -6,18 +6,25 @@
              alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
+        <form #form_login="ngForm">
 
           <div class="form-floating mb-4">
-            <input type="email" id="form3Example3" class="form-control form-control-lg"
-                   placeholder="Enter a valid email address"/>
+            <input name="username" type="text" id="form3Example3" class="form-control form-control-lg"
+                   placeholder="Enter account username" ngModel #user_name="ngModel" required/>
             <label class="form-label" for="form3Example3">UserName</label>
+            <div class="error text-danger small mt-1" *ngIf="user_name.touched">
+              <p *ngIf="user_name.errors?.['required']">UserName is required</p>
+            </div>
           </div>
 
           <div class="form-floating mb-3">
-            <input type="password" id="form3Example4" class="form-control form-control-lg"
-                   placeholder="Enter password"/>
+            <input name="password" type="password" id="form3Example4" class="form-control form-control-lg"
+                   placeholder="Enter password" ngModel #password="ngModel" required minlength="6"/>
             <label class="form-label" for="form3Example4">Password</label>
+            <div class="error text-danger small mt-1" *ngIf="password.touched">
+              <p *ngIf="password.errors?.['required']">Password is required</p>
+              <p *ngIf="password.errors?.['minlength']">Invalid Password</p>
+            </div>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
@@ -30,8 +37,8 @@
           </div>
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="button" class="btn btn-primary btn-lg"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="form_login.invalid"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;" (click)="onLogin(form_login)">Login
             </button>
             <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a [routerLink]="['/register']"
                                                                               class="link-danger">Register</a></p>
