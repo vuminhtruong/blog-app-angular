@@ -15,6 +15,7 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import { CommentComponent } from './components/comment/comment.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     CardElementComponent,
     PostDetailComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CommentComponent
   ],
   imports: [
     AppMaterialModule,
