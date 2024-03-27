@@ -9,8 +9,15 @@ export class PageSizeComponent {
   @Output()
   sizeValue = new EventEmitter<string>();
 
+  @Output()
+  sortBy = new EventEmitter<string>();
 
-  onSelected(value: string) {
+
+  onSelectedSize(value: string) {
     this.sizeValue.emit(value);
+  }
+
+  onSelectedSortBy(value: string) {
+    this.sortBy.emit(value);
   }
 }

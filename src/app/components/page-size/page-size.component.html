@@ -1,8 +1,13 @@
 <div class="w-25 mx-auto">
-  <select #pageSize (change)="onSelected(pageSize.value)" class="form-select" id="form-select" aria-label="Default select example">
+  <select #pageSize (change)="onSelectedSize(pageSize.value)" class="form-select" id="form-select-size" aria-label="Default select example">
     <option selected value="5">5</option>
     <option value="8">8</option>
     <option value="10">10</option>
+  </select>
+  <select #sortBy (change)="onSelectedSortBy(sortBy.value)" class="form-select mt-3" id="form-select-sortBy" aria-label="Default select example">
+    <option selected value="title">Title</option>
+    <option value="id">ID</option>
+    <option value="content">Content</option>
   </select>
 </div>
 

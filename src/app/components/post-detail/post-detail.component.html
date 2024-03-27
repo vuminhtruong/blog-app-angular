@@ -28,14 +28,19 @@
 <div class="my-3 mx-auto w-75">
   <h4>Comment</h4>
 </div>
-<ng-container *ngIf="true; else noComment">
-  <div class="row d-flex justify-content-center mx-auto w-75">
-    <div class="card shadow-0 border" style="background-color: #f0f2f5;">
-      <div class="card-body p-3">
-        <app-comment></app-comment>
+<ng-container *ngIf="comments$ | async as comments; else noComment">
+  <ng-container *ngIf="comments.length > 0; else noComment">
+    <div class="row d-flex justify-content-center mx-auto w-75">
+      <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+        <div class="card-body p-3">
+          @for (comment of comments; track comment) {
+            <app-comment [comment]="comment"></app-comment>
+          }
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
 </ng-container>
 
 

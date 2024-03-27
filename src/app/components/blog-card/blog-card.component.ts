@@ -36,4 +36,9 @@ export class BlogCardComponent implements OnInit{
     this.pageSize = size;
     this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
   }
+
+  getSortBy(sortBy: string) {
+    this.sortBy = sortBy;
+    this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+  }
 }
