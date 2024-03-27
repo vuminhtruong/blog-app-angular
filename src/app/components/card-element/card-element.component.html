@@ -1,9 +1,23 @@
 <div class="card shadow-lg w-50 border-primary mx-auto my-3">
-  <div class="card-body">
-    <h5 class="card-title">{{ post.title }}</h5>
+  <div class="card-body" style="padding: 20px">
+    <div class="row">
+      <div class="col">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <span class="spacer"></span>
+      </div>
+      <div class="col">
+        <ng-container *ngIf="category$ | async as category">
+          <p class="badge text-bg-success float-end" style="width: 50px">{{ category.name }}</p>
+        </ng-container>
+      </div>
+    </div>
     <p class="card-text">{{ post.description }}</p>
-    <p class="text-secondary">{{ post.category }}</p>
     <mat-divider class="mb-2"></mat-divider>
-    <a href="#" class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]">Read More</a>
+    <a href="#" class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]"
+       [queryParams]="{category: categoryID}">Read More</a>
   </div>
 </div>
+
+<!--<ng-template #noCategory>-->
+<!--  <p class="text-secondary">Category not found!</p>-->
+<!--</ng-template>-->

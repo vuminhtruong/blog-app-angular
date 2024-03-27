@@ -14,9 +14,12 @@
       <mat-card-title>
         <h1>{{ post.title }}</h1>
       </mat-card-title>
-      <mat-card-subtitle>
-        <h5>{{ post.category }}</h5>
-      </mat-card-subtitle>
+      <span class="spacer"></span>
+      <ng-container *ngIf="category$ | async as category">
+        <mat-card-subtitle>
+          <h5 title="{{category.description}}" class="badge text-bg-success">{{ category.name }}</h5>
+        </mat-card-subtitle>
+      </ng-container>
     </mat-card-header>
     <mat-divider></mat-divider>
     <mat-card-content class="mt-3">
