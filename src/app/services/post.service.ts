@@ -1,14 +1,17 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Post} from "../model/post";
+import {response} from "express";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   private baseURL: string = 'http://localhost:8080/api/posts';
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) {
+  }
 
   getAllPostsWithOutPageSize(): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseURL + '/all-post');
@@ -24,7 +27,21 @@ export class PostService {
 
 
   getPostById(id: String): Observable<Post> {
-    return this.http.get<Post>(this.baseURL + '/'+ id);
+    return this.http.get<Post>(this.baseURL + '/' + id);
+  }
+
+  createNewPost(newPost: any) {
+    const jwt_token = localStorage.getItem('jwt_token');
+    const headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + jwt_token
+    });
+
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    return this.http.post(this.baseURL, newPost, httpOptions);
   }
 
 }

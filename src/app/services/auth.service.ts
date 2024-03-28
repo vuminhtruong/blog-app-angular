@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {tap} from "rxjs";
+import {BehaviorSubject, tap} from "rxjs";
 
 interface loginResponse {
   accessToken : string,
@@ -14,11 +14,20 @@ interface loginResponse {
 })
 export class AuthService {
   private baseURL: string = 'http://localhost:8080/api/auth/';
-  loggedIn: boolean = false;
+  // private loggedIn = new BehaviorSubject<boolean>(false);
+  loggedIn = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
 
   }
+
+  // setLoggedIn(value: boolean) {
+  //   this.loggedIn.next(value);
+  // }
+
+  // get isLoggedIn() {
+  //   return this.loggedIn.asObservable();
+  // }
 
   register(register: any) {
     const headers = new HttpHeaders()
@@ -33,7 +42,8 @@ export class AuthService {
         localStorage.setItem('username', login.username);
         localStorage.setItem('jwt_token', response.accessToken);
         localStorage.setItem('token_type', response.tokenType);
-        this.loggedIn = true;
+        this.loggedIn.emit(true);
+        // this.setLoggedIn(true);
       })
     )
   }

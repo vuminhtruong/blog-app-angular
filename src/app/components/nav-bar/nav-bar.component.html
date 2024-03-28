@@ -2,12 +2,13 @@
   <mat-toolbar-row>
     <button mat-button class="example-button" routerLink="/">Blog App</button>
     <span class="spacer"></span>
-    <ng-container *ngIf="false; else guest">
-      <button mat-raised-button>
-        New Post <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>
+    <ng-container *ngIf="loggedIn; else guest">
+      <button mat-raised-button (click)="onClickNewPost()">
+        New Post
+        <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>
       </button>
-        <img src="assets/profile.png" class="navbar-button rounded-circle shadow-4"
-           style="width: 38px;" alt="Avatar" />
+      <img src="assets/profile.png" class="navbar-button rounded-circle shadow-4 mx-3"
+           style="width: 38px;" alt="Avatar" [routerLink]="['/user-detail']"/>
     </ng-container>
     <ng-template #guest>
       <button mat-raised-button class="navbar-button" [routerLink]="['/login']">Login</button>

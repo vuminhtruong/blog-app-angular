@@ -9,7 +9,7 @@
         <form #form_login="ngForm" (ngSubmit)="onLogin(form_login.value)">
 
           <div class="form-floating mb-4">
-            <input name="username" type="text" id="form3Example3" class="form-control form-control-lg"
+            <input name="username" type="text" id="form3Example3" class="form-control form-control-sm"
                    placeholder="Enter account username" ngModel #user_name="ngModel" required/>
             <label class="form-label" for="form3Example3">UserName</label>
             <div class="error text-danger small mt-1" *ngIf="user_name.touched">
@@ -18,7 +18,7 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input name="password" type="password" id="form3Example4" class="form-control form-control-lg"
+            <input name="password" type="password" id="form3Example4" class="form-control form-control-sm"
                    placeholder="Enter password" ngModel #password="ngModel" required minlength="6"/>
             <label class="form-label" for="form3Example4">Password</label>
             <div class="error text-danger small mt-1" *ngIf="password.touched">

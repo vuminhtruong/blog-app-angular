@@ -13,7 +13,7 @@
     </div>
     <p class="card-text">{{ post.description }}</p>
     <mat-divider class="mb-2"></mat-divider>
-    <a href="#" class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]"
+    <a class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]"
        [queryParams]="{category: categoryID}">Read More</a>
   </div>
 </div>
