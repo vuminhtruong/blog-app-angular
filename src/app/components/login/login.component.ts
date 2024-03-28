@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {NgForm} from "@angular/forms";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -7,8 +9,16 @@ import {NgForm} from "@angular/forms";
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
-  onLogin(form_login: NgForm) {
-    console.log(form_login.value);
+  onLogin(value: any) {
+    this.authService.login(value).subscribe({
+      next: () => {
+        alert('Login Successfully!');
+        this.router.navigate(['/']).then(data => console.log(data));
+      },
+      error: err => alert('Username or Password is not correct')
+    });
   }
 }

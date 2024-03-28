@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {RegisterService} from "../../services/register.service";
+import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,14 +9,14 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent implements OnInit{
 
-  constructor(private registerService: RegisterService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   onSubmit(value: any) {
-    this.registerService.register(value).subscribe(value => {
+    this.authService.register(value).subscribe(value => {
         if(value === 'User registered successfully') {
           alert('Register Successfully!');
           // data = true
