@@ -23,6 +23,7 @@ import {UserComponent} from './components/user/user.component';
 import {NewPostComponent} from './components/new-post/new-post.component';
 import {JwtInterceptorService} from "./services/jwt-interceptor.service";
 import { NewCategoryComponent } from './components/new-category/new-category.component';
+import { CommentDialogComponent } from './dialog/comment-dialog/comment-dialog.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { NewCategoryComponent } from './components/new-category/new-category.com
     UserComponent,
     NewPostComponent,
     NewCategoryComponent,
+    CommentDialogComponent,
   ],
   imports: [
     AppMaterialModule,
@@ -47,7 +49,8 @@ import { NewCategoryComponent } from './components/new-category/new-category.com
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     // {

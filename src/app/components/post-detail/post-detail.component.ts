@@ -7,6 +7,8 @@ import {Comment} from "../../model/comment";
 import {CommentService} from "../../services/comment.service";
 import {Category} from "../../model/category";
 import {CategoryService} from "../../services/category.service";
+import {MatDialog} from "@angular/material/dialog";
+import {CommentDialogComponent} from "../../dialog/comment-dialog/comment-dialog.component";
 
 @Component({
   selector: 'app-post-detail',
@@ -25,7 +27,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   constructor(private activeRoute: ActivatedRoute,
               private postService: PostService,
               private commentService: CommentService,
-              private categoryService: CategoryService) {
+              private categoryService: CategoryService,
+              public dialog: MatDialog) {
 
   }
 
@@ -53,5 +56,17 @@ export class PostDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub1.unsubscribe();
     this.sub2.unsubscribe();
+  }
+
+  openCommentDialog(enterAnimationDuration: string, exitAnimationDuration: string) {
+    this.dialog.open(CommentDialogComponent, {
+      width: '500px',
+      height: '500px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        postId: this.postId
+      }
+    })
   }
 }

@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Comment</h2>
+<form #form_comment='ngForm' (ngSubmit)="createComment(form_comment.value)">
+  <mat-dialog-content>
+    <div>
+      <div>
+        <label for="yourName" class="form-label fw-bold">Your Name</label>
+        <input name="name" type="text" id="yourName" class="form-control" ngModel #name='ngModel' required minlength="3">
+        <div class="error text-danger small mt-1" *ngIf="name.touched">
+          <p *ngIf="name.errors?.['required']">UserName is required</p>
+        </div>
+      </div>
+      <ng-container *ngIf="user$ | async as user; else guest">
+        <div class="my-1">
+          <label for="email" class="form-label fw-bold">Your Email</label>
+          <input name="email" type="email" id="email" class="form-control"
+                 value="{{user.email}}" [(ngModel)]="user.email" readonly>
+        </div>
+      </ng-container>
+      <div>
+        <label for="comment" class="form-label fw-bold">Your Comment</label>
+        <textarea name="body" type="text" id="comment" class="form-control" rows="3" required ngModel></textarea>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Exit</button>
+    <button [disabled]="form_comment.invalid" type="submit" class="btn btn-warning" mat-button mat-dialog-close>Submit</button>
+  </mat-dialog-actions>
+</form>
+
+<ng-template #guest>
+  <div class="my-1">
+    <label for="email_guest" class="form-label fw-bold">Your Email</label>
+    <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  type="email" id="email_guest" class="form-control" required [(ngModel)]="guest_name" #email_guest='ngModel' >
+    <div class="error text-danger small mt-1" *ngIf="email_guest.touched">
+      <p *ngIf="email_guest.errors?.['required']">Email is required</p>
+      <p *ngIf="email_guest.errors?.['pattern']">Not a valid Email</p>
+    </div>
+  </div>
+</ng-template>

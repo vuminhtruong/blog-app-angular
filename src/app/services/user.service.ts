@@ -11,6 +11,7 @@ export class UserService {
   isAdmin = new EventEmitter<boolean>();
   private baseUrl = 'http://localhost:8080/api/user/';
   roles: Set<string> = new Set<string>([]);
+  isLogOut = new EventEmitter<boolean>;
 
   constructor(private http: HttpClient) {
   }
@@ -26,5 +27,10 @@ export class UserService {
         }
       )
     );
+  }
+
+  logOut() {
+    window.localStorage.clear();
+    this.isLogOut.emit(true);
   }
 }

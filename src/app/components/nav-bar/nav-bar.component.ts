@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
@@ -11,7 +11,10 @@ import {UserService} from "../../services/user.service";
 })
 export class NavBarComponent implements OnInit {
   iconAdd = faAdd;
+
+  @Input()
   loggedIn: boolean = false;
+
   isAdmin: boolean | undefined;
 
   constructor(private authService: AuthService, private router: Router, private userService: UserService) {
@@ -24,6 +27,10 @@ export class NavBarComponent implements OnInit {
     });
     this.userService.isAdmin.subscribe((value) => {
       this.isAdmin = value;
+    })
+    this.userService.isLogOut.subscribe(value => {
+      this.loggedIn = !value;
+      console.log(this.loggedIn);
     })
   }
 

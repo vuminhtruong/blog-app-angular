@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Comment} from "../model/comment";
 
@@ -14,4 +14,9 @@ export class CommentService {
   getCommentsOfPost(postId: string): Observable<Comment[]> {
     return this.http.get<Comment[]>(this.baseURL + '/' + postId + '/comments');
   }
+
+  createComment(postId: string, value: any) {
+    return this.http.post(this.baseURL + '/' + postId + '/comments',value);
+  }
+
 }

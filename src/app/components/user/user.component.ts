@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {User} from "../../model/user";
-import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
-import {Role} from "../../model/role";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user',
@@ -15,7 +14,7 @@ export class UserComponent implements OnInit {
   username: string = '';
   isAdmin: boolean = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
 
   }
 
@@ -27,5 +26,10 @@ export class UserComponent implements OnInit {
         this.isAdmin = value;
       })
     }
+  }
+
+  logOut() {
+    this.userService.logOut();
+    this.router.navigate(['/']).then(data => console.log(data));
   }
 }
