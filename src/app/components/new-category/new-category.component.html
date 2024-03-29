@@ -1,0 +1,21 @@
+<div class="bg-primary-subtle mt-4 p-4 rounded">
+  <h3 class="text-center">Add New Category For Posts</h3>
+  <form #form_new_category="ngForm" (ngSubmit)="createNewCategory(form_new_category.value)">
+    <div class="form-group">
+      <label for="name">Category Name:</label>
+      <input required name="name" type="text" class="form-control" id="name" placeholder="Category Name" ngModel
+             #name='ngModel'>
+      <div class="error text-danger small mt-1" *ngIf="name.touched">
+        <p *ngIf="name.errors?.['required']">Category Name is required</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Category Description:</label>
+      <textarea required minlength="20" #description name="description" type="text" class="form-control"
+                id="description" placeholder="Category Description" ngModel></textarea>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-dark mt-2 w-50" [disabled]="form_new_category.invalid">Add</button>
+    </div>
+  </form>
+</div>

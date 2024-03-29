@@ -22,6 +22,7 @@ import {PageSizeComponent} from './components/page-size/page-size.component';
 import {UserComponent} from './components/user/user.component';
 import {NewPostComponent} from './components/new-post/new-post.component';
 import {JwtInterceptorService} from "./services/jwt-interceptor.service";
+import { NewCategoryComponent } from './components/new-category/new-category.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {JwtInterceptorService} from "./services/jwt-interceptor.service";
     PageSizeComponent,
     UserComponent,
     NewPostComponent,
+    NewCategoryComponent,
   ],
   imports: [
     AppMaterialModule,

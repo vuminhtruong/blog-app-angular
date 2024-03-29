@@ -7,12 +7,14 @@
       </div>
       <div class="form-group col-md-6 my-2">
         <label for="inputPassword4">Description</label>
-        <input name="description" type="text" class="form-control" id="inputPassword4" placeholder="Description" ngModel>
+        <input name="description" type="text" class="form-control" id="inputPassword4" placeholder="Description"
+               ngModel>
       </div>
     </div>
     <div class="form-group col-md-6 my-2">
       <label for="exampleFormControlTextarea1" class="form-label">Content</label>
-      <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Content" ngModel></textarea>
+      <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Content"
+                ngModel></textarea>
     </div>
     <div class="form-group col-md-4 my-2">
       <label for="inputState">Category:</label>
@@ -24,6 +26,11 @@
           }
         </ng-container>
       </select>
+      <button type="button" class="mt-2" mat-raised-button (click)="onNewCategory()">
+        New Category
+        <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>
+      </button>
+      <div #newCategory></div>
     </div>
     <button type="submit" class="btn btn-primary mt-2">Create Post</button>
   </form>
