@@ -1,13 +1,40 @@
-<div class="w-25 mx-auto">
-  <select #pageSize (change)="onSelectedSize(pageSize.value)" class="form-select" id="form-select-size" aria-label="Default select example">
-    <option selected value="5">5</option>
-    <option value="8">8</option>
-    <option value="10">10</option>
-  </select>
-  <select #sortBy (change)="onSelectedSortBy(sortBy.value)" class="form-select mt-3" id="form-select-sortBy" aria-label="Default select example">
-    <option selected value="title">Title</option>
-    <option value="id">ID</option>
-    <option value="content">Content</option>
-  </select>
+<div class="w-50 mx-auto">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <label for="form-select-size">Choose Page Size: </label>
+        <select #pageSize (change)="onSelectedSize(pageSize.value)" class="form-select" id="form-select-size"
+                aria-label="Default select example">
+          <option selected disabled>Page Size</option>
+          <option value="5">5</option>
+          <option value="8">8</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="form-select-sortBy">Sort By: </label>
+        <select #sortBy (change)="onSelectedSortBy(sortBy.value)" class="form-select" id="form-select-sortBy"
+                aria-label="Default select example">
+          <option selected disabled>Sort By</option>
+          <option value="title">Title</option>
+          <option value="id">ID</option>
+          <option value="content">Content</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="filter-category">Filter By Category: </label>
+        <select #filter (change)="onSelectedFilter(filter.value)" class="form-select" id="filter-category"
+                aria-label="Default select example">
+          <option selected disabled>Choose Category</option>
+          <option value="-1">All Post</option>
+          <ng-container *ngIf="category$ | async as categories">
+            @for (category of categories; track category.id) {
+              <option value="{{category.id}}">{{ category.name }}</option>
+            }
+          </ng-container>
+        </select>
+      </div>
+    </div>
+  </div>
 </div>
 

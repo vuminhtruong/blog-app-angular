@@ -1,19 +1,22 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Observable} from "rxjs";
 import {Post} from "../../model/post";
 import {PostService} from "../../services/post.service";
+import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-blog-card',
   templateUrl: './blog-card.component.html',
   styleUrl: './blog-card.component.css'
 })
-export class BlogCardComponent implements OnInit{
+export class BlogCardComponent implements OnInit {
   allPosts$: Observable<Post[]> | undefined;
   posts$: Observable<Post[]> | undefined;
   pageSize = '5';
   pageNo: string = '0';
   sortBy: string = 'title';
+  filter_category_id = '';
+  onFilterMode = false;
 
   constructor(private postService: PostService) {
   }
@@ -23,22 +26,45 @@ export class BlogCardComponent implements OnInit{
     this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
   }
 
-  protected readonly Math = Math;
-
   setPageNumber(page: string) {
     this.pageNo = (parseInt(page) - 1).toString();
-    this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    if (this.onFilterMode) {
+      this.posts$ = this.postService.getPostsByCategory(this.filter_category_id, this.pageSize, this.pageNo, this.sortBy);
+    } else {
+      this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    }
   }
-
-  protected readonly parseInt = parseInt;
 
   getPageSize(size: string) {
     this.pageSize = size;
-    this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    if (this.onFilterMode) {
+      this.posts$ = this.postService.getPostsByCategory(this.filter_category_id, this.pageSize, this.pageNo, this.sortBy);
+    } else {
+      this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    }
   }
 
   getSortBy(sortBy: string) {
     this.sortBy = sortBy;
-    this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    if (this.onFilterMode) {
+      this.posts$ = this.postService.getPostsByCategory(this.filter_category_id, this.pageSize, this.pageNo, this.sortBy);
+    } else {
+      this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    }
+  }
+
+  getFilterCategory(filter_category_id: string) {
+    this.filter_category_id = filter_category_id;
+    this.onFilterMode = true;
+    if (this.filter_category_id !== '') {
+      if (this.filter_category_id === '-1') {
+        this.allPosts$ = this.postService.getAllPostsWithOutPageSize();
+        this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+        this.onFilterMode = false;
+      } else {
+        this.allPosts$ = this.postService.getAllPostsByCategory(this.filter_category_id);
+        this.posts$ = this.postService.getPostsByCategory(this.filter_category_id, this.pageSize, this.pageNo, this.sortBy);
+      }
+    }
   }
 }

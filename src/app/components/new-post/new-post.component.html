@@ -19,7 +19,7 @@
     <div class="form-group col-md-4 my-2">
       <label for="inputState">Category:</label>
       <select name="categoryId" id="inputState" class="form-control" ngModel>
-        <option selected>Choose Category ...</option>
+        <option selected value="Choose Category" disabled>Choose Category ...</option>
         <ng-container *ngIf="category$ | async as categories">
           @for (category of categories; track category.id) {
             <option value="{{category.id}}">{{ category.name }}</option>
