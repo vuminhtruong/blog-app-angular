@@ -22,9 +22,11 @@ export class UserComponent implements OnInit {
     if(localStorage.getItem('username')) {
       this.username += localStorage.getItem('username');
       this.user$ = this.userService.getUserDetail(this.username);
+      // console.log(this.isAdmin); // false
       this.userService.isAdmin.subscribe((value) => {
         this.isAdmin = value;
       })
+      // console.log(this.isAdmin); // false
     }
   }
 

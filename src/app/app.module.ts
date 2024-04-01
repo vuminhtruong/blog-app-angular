@@ -24,6 +24,8 @@ import {NewPostComponent} from './components/new-post/new-post.component';
 import {JwtInterceptorService} from "./services/jwt-interceptor.service";
 import { NewCategoryComponent } from './components/new-category/new-category.component';
 import { CommentDialogComponent } from './dialog/comment-dialog/comment-dialog.component';
+import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
+import { EditPostDialogComponent } from './dialog/edit-post-dialog/edit-post-dialog.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { CommentDialogComponent } from './dialog/comment-dialog/comment-dialog.c
     NewPostComponent,
     NewCategoryComponent,
     CommentDialogComponent,
+    DeleteDialogComponent,
+    EditPostDialogComponent,
   ],
   imports: [
     AppMaterialModule,

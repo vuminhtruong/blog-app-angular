@@ -24,6 +24,7 @@ export class UserService {
             this.roles.add(value.role);
           })
           this.isAdmin.emit(this.roles.has('ROLE_ADMIN'));
+          this.isAdmin.subscribe((value) => console.log(value));
         }
       )
     );
@@ -32,5 +33,7 @@ export class UserService {
   logOut() {
     window.localStorage.clear();
     this.isLogOut.emit(true);
+    this.isAdmin.emit(false);
+    this.roles = new Set<string>([]);
   }
 }

@@ -44,6 +44,16 @@ export class PostService {
     return this.http.post(this.baseURL, newPost, httpOptions);
   }
 
+  deletePost(id : BigInt) {
+    const jwt_token = localStorage.getItem('jwt_token');
+    const headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + jwt_token
+    });
+
+    return this.http.delete(this.baseURL + '/' + id, {headers: headers_object, responseType: 'text'});
+  }
+
   getAllPostsByCategory(category_id: string): Observable<Post[]> {
     return this.http.get<Post[]>(this.baseURL + '/category/' + category_id);
   }
@@ -53,4 +63,17 @@ export class PostService {
   }
 
 
+  editPost(postId: string, value: any) {
+    const jwt_token = localStorage.getItem('jwt_token');
+    const headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + jwt_token
+    });
+
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    return this.http.put(this.baseURL + '/' + postId, value, httpOptions);
+  }
 }

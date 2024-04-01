@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterContentChecked, AfterContentInit, Component, DoCheck, Input, OnDestroy, OnInit} from '@angular/core';
 import {PostService} from "../../services/post.service";
 import {ActivatedRoute} from "@angular/router";
 import {Post} from "../../model/post";
@@ -9,13 +9,17 @@ import {Category} from "../../model/category";
 import {CategoryService} from "../../services/category.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CommentDialogComponent} from "../../dialog/comment-dialog/comment-dialog.component";
+import {UserService} from "../../services/user.service";
+import {User} from "../../model/user";
+import {DeleteDialogComponent} from "../../dialog/delete-dialog/delete-dialog.component";
+import {EditPostDialogComponent} from "../../dialog/edit-post-dialog/edit-post-dialog.component";
 
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css'
 })
-export class PostDetailComponent implements OnInit, OnDestroy {
+export class PostDetailComponent implements OnInit {
   postId!: string;
   private sub1: any;
   private sub2: any;
@@ -31,6 +35,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
               public dialog: MatDialog) {
 
   }
+
 
   ngOnInit(): void {
     this.sub1 = this.activeRoute.params.subscribe(param => {
@@ -48,7 +53,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       this.post$ = EMPTY;
     }
 
-    if(this.category) {
+    if (this.category) {
       this.category$ = this.categoryService.getCategoryById(BigInt(this.category));
     }
   }
@@ -66,6 +71,32 @@ export class PostDetailComponent implements OnInit, OnDestroy {
       exitAnimationDuration,
       data: {
         postId: this.postId
+      }
+    })
+  }
+
+  openDialogDelete(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DeleteDialogComponent, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      data: {
+          postId: this.postId
+      }
+      },
+    );
+  }
+
+  openDialogEditPost(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(EditPostDialogComponent, {
+      width: '500px',
+      height: '500px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        postId: this.postId,
+        post: this.post$,
+        category: this.category$
       }
     })
   }

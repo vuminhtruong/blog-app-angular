@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Edit Post</h2>
+<form #form_edit_post='ngForm' (ngSubmit)="editPost(form_edit_post.value)">
+  <mat-dialog-content>
+    <ng-container *ngIf="post$ | async as post">
+      <div>
+        <div>
+          <label for="title" class="form-label fw-bold">Title</label>
+          <input name="title" type="text" id="title" class="form-control" [(ngModel)]="post.title">
+        </div>
+        <div class="my-2">
+          <label for="description" class="form-label fw-bold">Description</label>
+          <input name="description" type="text" id="description" class="form-control" [(ngModel)]="post.description">
+        </div>
+        <div>
+          <label for="content" class="form-label fw-bold">Content</label>
+          <input name="content" type="text" id="content" class="form-control" [(ngModel)]="post.content">
+        </div>
+        <div class="form-group col-md-4 my-2">
+          <ng-container *ngIf="categoryPost$ | async as category; else setCategory">
+            <label for="inputState" class="form-label fw-bold">Category:</label>
+            <select readonly name="categoryId" id="inputState" class="form-control">
+              <option selected value="{{category.id}}" >{{ category.name }}</option>
+            </select>
+            <select hidden="hidden" readonly name="categoryId" class="form-control" [ngModel]="category.id">
+              <option selected value="{{category.id}}" >{{ category.name }}</option>
+            </select>
+          </ng-container>
+
+          <!--        <button type="button" class="mt-2" mat-raised-button (click)="onNewCategory()">-->
+          <!--          New Category-->
+          <!--          <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>-->
+          <!--        </button>-->
+          <!--        <div #newCategory></div>-->
+        </div>
+      </div>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Exit</button>
+    <button  [disabled]="form_edit_post.invalid" type="submit" class="btn btn-warning" mat-button mat-dialog-close>Submit
+    </button>
+  </mat-dialog-actions>
+</form>
+
+<ng-template #setCategory>
+  <ng-container *ngIf="categoryAll$ | async as categories">
+    <label for="category" class="form-label fw-bold">Category:</label>
+    <select name="categoryId" id="category" class="form-control" [(ngModel)]="selectedCategory">
+      @for (category of categories; track category.id) {
+        <option value="{{category.id}}" [ngValue]="category">{{ category.name }}</option>
+      }
+    </select>
+  </ng-container>
+</ng-template>
