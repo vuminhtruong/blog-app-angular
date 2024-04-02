@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import {UserService} from "./services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,9 @@ export class AppComponent implements OnInit {
   loggedIN = false;
   username = '';
   title = 'blog-app-frontend';
+
+  constructor() {
+  }
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {

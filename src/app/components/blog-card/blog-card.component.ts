@@ -1,4 +1,4 @@
-import {Component, Inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, Component, DoCheck, Inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Observable} from "rxjs";
 import {Post} from "../../model/post";
 import {PostService} from "../../services/post.service";
@@ -17,6 +17,7 @@ export class BlogCardComponent implements OnInit {
   sortBy: string = 'title';
   filter_category_id = '';
   onFilterMode = false;
+  inputSearch: string = '';
 
   constructor(private postService: PostService) {
   }
@@ -24,6 +25,7 @@ export class BlogCardComponent implements OnInit {
   ngOnInit() {
     this.allPosts$ = this.postService.getAllPostsWithOutPageSize();
     this.posts$ = this.postService.getPostsWithPageSize(this.pageSize, this.pageNo, this.sortBy);
+    this.postService.fetchInputSearch().subscribe(value => this.inputSearch = value);
   }
 
   setPageNumber(page: string) {

@@ -32,6 +32,10 @@ export class UserService {
     );
   }
 
+  getRole(username: String) {
+    return this.http.get<boolean>(this.baseUrl + username + '/role');
+  }
+
   logOut() {
     window.localStorage.clear();
     this.isLogOut.emit(true);

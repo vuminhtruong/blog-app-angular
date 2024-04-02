@@ -45,7 +45,7 @@ export class EditPostDialogComponent implements OnInit {
         alert('Update Successfully!');
         this.router.navigate(['/']).then((value) => console.log(value));
       },
-      error: err => alert('Error: Not set Category for this Post')
+      error: err => alert('You are not ADMIN')
     });
   }
 

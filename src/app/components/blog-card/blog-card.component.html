@@ -12,6 +12,7 @@
 
 </ng-template>
 
+<a>{{inputSearch}}</a>
 <ng-container *ngIf="allPosts$ | async as allPosts; else loading">
   <ng-container *ngIf="allPosts.length > 0; else noData">
     <app-pagination (page)="setPageNumber($event)" [pageSize]="pageSize" [postLength]="allPosts.length.toString()"></app-pagination>

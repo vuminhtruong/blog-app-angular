@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Post} from "../model/post";
 import {response} from "express";
 
@@ -9,8 +9,17 @@ import {response} from "express";
 })
 export class PostService {
   private baseURL: string = 'http://localhost:8080/api/posts';
+  private inputSearch = new BehaviorSubject('Default Value');
 
   constructor(private http: HttpClient) {
+  }
+
+  fetchInputSearch() : Observable<string> {
+    return this.inputSearch.asObservable();
+  }
+
+  pushInputSearch(inputSearch: string) {
+    this.inputSearch.next(inputSearch);
   }
 
   getAllPostsWithOutPageSize(): Observable<Post[]> {

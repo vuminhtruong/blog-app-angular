@@ -2,15 +2,14 @@
   <mat-toolbar-row>
     <button mat-button class="example-button" routerLink="/">Blog App</button>
     <span class="spacer"></span>
+    <div class="form-inline mx-2">
+      <input #input_search (keyup)="onSearchChange(input_search.value)" class="form-control mr-sm-2 " type="search" placeholder="Search Post" aria-label="Search">
+    </div>
     <ng-container *ngIf="loggedIn; else guest">
-      <ng-container *ngIf="user$ | async as user">
-        <ng-container *ngIf="isAdmin">
-          <button mat-raised-button (click)="onClickNewPost()">
-            New Post
-            <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>
-          </button>
-        </ng-container>
-      </ng-container>
+      <button mat-raised-button (click)="onClickNewPost()">
+        New Post
+        <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>
+      </button>
       <img src="assets/profile.png" class="navbar-button rounded-circle shadow-4 mx-3"
            style="width: 38px;" alt="Avatar" [routerLink]="['/user-detail']"/>
     </ng-container>

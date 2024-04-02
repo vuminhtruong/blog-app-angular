@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {Observable} from "rxjs";
 import {User} from "../../model/user";
+import {PostService} from "../../services/post.service";
 
 @Component({
   selector: 'app-nav-bar',
@@ -24,6 +25,7 @@ import {User} from "../../model/user";
 export class NavBarComponent implements OnInit {
   iconAdd = faAdd;
   user$: Observable<User> | undefined;
+  inputSearch: string | undefined;
 
   @Input()
   username: string = '';
@@ -31,14 +33,13 @@ export class NavBarComponent implements OnInit {
   @Input()
   loggedIn: boolean = false;
 
-  isAdmin: boolean | undefined;
+  isAdmin: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private userService: UserService) {
+  constructor(private authService: AuthService, private router: Router, private userService: UserService, private postService: PostService) {
 
   }
 
   ngOnInit(): void {
-    console.log(this.username);
     this.user$ = this.userService.getUserDetail(this.username);
 
     this.userService.isAdmin.subscribe((value) => {
@@ -52,6 +53,8 @@ export class NavBarComponent implements OnInit {
     this.userService.isLogOut.subscribe(value => {
       this.loggedIn = !value;
     })
+
+    this.postService.fetchInputSearch().subscribe(value => this.inputSearch = value);
   }
 
   onClickNewPost() {
@@ -60,5 +63,9 @@ export class NavBarComponent implements OnInit {
     } else {
       alert('Need permit ADMIN');
     }
+  }
+
+  onSearchChange(value: string) {
+    this.postService.pushInputSearch(value);
   }
 }
