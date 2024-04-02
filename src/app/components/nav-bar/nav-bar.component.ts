@@ -1,4 +1,5 @@
 import {
+  AfterContentChecked,
   AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
@@ -22,6 +23,10 @@ import {User} from "../../model/user";
 })
 export class NavBarComponent implements OnInit {
   iconAdd = faAdd;
+  user$: Observable<User> | undefined;
+
+  @Input()
+  username: string = '';
 
   @Input()
   loggedIn: boolean = false;
@@ -33,18 +38,20 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.loggedIn.subscribe((value) => {
-      this.loggedIn = value;
-    });
+    console.log(this.username);
+    this.user$ = this.userService.getUserDetail(this.username);
 
     this.userService.isAdmin.subscribe((value) => {
       this.isAdmin = value;
     })
 
+    this.authService.loggedIn.subscribe((value) => {
+      this.loggedIn = value;
+    });
+
     this.userService.isLogOut.subscribe(value => {
       this.loggedIn = !value;
     })
-
   }
 
   onClickNewPost() {

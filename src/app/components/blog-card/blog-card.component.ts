@@ -67,4 +67,8 @@ export class BlogCardComponent implements OnInit {
       }
     }
   }
+
+  onReloadPage() {
+    this.getFilterCategory('-1');
+  }
 }

@@ -9,11 +9,13 @@ import {response} from "express";
 })
 export class UserService {
   isAdmin = new EventEmitter<boolean>();
+  is_Admin = false;
   private baseUrl = 'http://localhost:8080/api/user/';
   roles: Set<string> = new Set<string>([]);
   isLogOut = new EventEmitter<boolean>;
 
   constructor(private http: HttpClient) {
+
   }
 
   getUserDetail(username: String) {

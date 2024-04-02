@@ -5,6 +5,7 @@ import {Category} from "../../model/category";
 import {PostService} from "../../services/post.service";
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {NewCategoryComponent} from "../new-category/new-category.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-post',
@@ -19,7 +20,7 @@ export class NewPostComponent implements OnInit{
   category$: Observable<Category[]> | undefined;
 
 
-  constructor(private categoryService: CategoryService, private postService: PostService) {
+  constructor(private categoryService: CategoryService, private postService: PostService, private route: Router) {
 
   }
 
@@ -28,8 +29,12 @@ export class NewPostComponent implements OnInit{
   }
 
   createPost(value: any) {
-    this.postService.createNewPost(value).subscribe(value => {
-      console.log(value);
+    this.postService.createNewPost(value).subscribe({
+      next: () => {
+        alert('Create Post Successfully!');
+        this.route.navigate(['/']).then();
+      },
+      error: err => alert('Category not set!')
     });
   }
 

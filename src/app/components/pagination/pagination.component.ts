@@ -57,5 +57,7 @@ export class PaginationComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
     this.totalPosts = Math.ceil(parseInt(this.postLength) / parseInt(this.pageSize));
     this.pagePaginator = Array(this.totalPosts).fill(0).map((x,i) => i + 1);
+    this.page.emit('1');
+    this.activePage = '1';
   }
 }

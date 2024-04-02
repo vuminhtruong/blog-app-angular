@@ -6,6 +6,10 @@
 
 <ng-template #noData>
   <h3 class="d-flex justify-content-center font-monospace mt-5">No data found</h3>
+  <div class="text-center">
+    <button type="button" class="btn btn-primary" (click)="onReloadPage()">Reload</button>
+  </div>
+
 </ng-template>
 
 <ng-container *ngIf="allPosts$ | async as allPosts; else loading">

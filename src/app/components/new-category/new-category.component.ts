@@ -12,7 +12,6 @@ export class NewCategoryComponent {
 
   }
 
-
   createNewCategory(value: any) {
     this.categoryService.createCategory(value).subscribe({
       next: () => {

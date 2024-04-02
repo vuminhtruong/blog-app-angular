@@ -8,8 +8,9 @@ import {Category} from "../../model/category";
   templateUrl: './page-size.component.html',
   styleUrl: './page-size.component.css'
 })
-export class PageSizeComponent implements OnInit, OnChanges{
+export class PageSizeComponent implements OnInit{
   category$: Observable<Category[]> | undefined;
+
   @Output()
   sizeValue = new EventEmitter<string>();
 
@@ -37,9 +38,5 @@ export class PageSizeComponent implements OnInit, OnChanges{
 
   onSelectedFilter(value: string) {
     this.filter_category_id.emit(value);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
   }
 }

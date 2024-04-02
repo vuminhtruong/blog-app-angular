@@ -7,11 +7,13 @@ import { Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
   loggedIN = false;
+  username = '';
   title = 'blog-app-frontend';
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
       if (localStorage.getItem('username')) {
+        this.username += localStorage.getItem('username');
         this.loggedIN = true;
       }
     }
