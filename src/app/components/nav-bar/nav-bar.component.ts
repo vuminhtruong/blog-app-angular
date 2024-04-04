@@ -16,6 +16,7 @@ import {UserService} from "../../services/user.service";
 import {Observable} from "rxjs";
 import {User} from "../../model/user";
 import {PostService} from "../../services/post.service";
+import {Post} from "../../model/post";
 
 @Component({
   selector: 'app-nav-bar',
@@ -26,6 +27,8 @@ export class NavBarComponent implements OnInit {
   iconAdd = faAdd;
   user$: Observable<User> | undefined;
   inputSearch: string | undefined;
+  postsTemp: Post[] | undefined;
+  posts: Post[] | undefined;
 
   @Input()
   username: string = '';
@@ -35,12 +38,15 @@ export class NavBarComponent implements OnInit {
 
   isAdmin: boolean = false;
 
+
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private postService: PostService) {
 
   }
 
   ngOnInit(): void {
     this.user$ = this.userService.getUserDetail(this.username);
+    this.postService.getAllPostsWithOutPageSize().subscribe(value => this.postsTemp = value);
+    this.posts = this.postsTemp;
 
     this.userService.isAdmin.subscribe((value) => {
       this.isAdmin = value;
@@ -55,6 +61,7 @@ export class NavBarComponent implements OnInit {
     })
 
     this.postService.fetchInputSearch().subscribe(value => this.inputSearch = value);
+    this.postService.fetchAllPost().subscribe(value => this.postsTemp = value);
   }
 
   onClickNewPost() {
@@ -66,6 +73,14 @@ export class NavBarComponent implements OnInit {
   }
 
   onSearchChange(value: string) {
-    this.postService.pushInputSearch(value);
+    if(value === '') {
+      this.postService.pushInputSearch('Empty Input Search')
+    } else {
+      this.postService.pushInputSearch(value);
+    }
+    if (this.posts) {
+      const pushPost = this.posts.filter(post => post.title.toLowerCase().includes(value.toLowerCase()));
+      this.postService.pushAllPost(pushPost);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {Observable} from "rxjs";
 import {Category} from "../../model/category";
@@ -19,6 +19,9 @@ export class PageSizeComponent implements OnInit{
 
   @Output()
   filter_category_id = new EventEmitter<string>();
+
+  @Input()
+  onSearchMode = false;
 
   constructor(private categoryService: CategoryService) {
 

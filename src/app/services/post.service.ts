@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {Post} from "../model/post";
 import {response} from "express";
 
@@ -9,9 +9,19 @@ import {response} from "express";
 })
 export class PostService {
   private baseURL: string = 'http://localhost:8080/api/posts';
-  private inputSearch = new BehaviorSubject('Default Value');
+  private inputSearch = new BehaviorSubject('');
+  private allPost = new BehaviorSubject<Post[]>([]);
 
   constructor(private http: HttpClient) {
+
+  }
+
+  fetchAllPost() : Observable<Post[]> {
+    return this.allPost.asObservable();
+  }
+
+  pushAllPost(posts: Post[]) {
+    this.allPost.next(posts);
   }
 
   fetchInputSearch() : Observable<string> {

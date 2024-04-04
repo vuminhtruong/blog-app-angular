@@ -24,7 +24,7 @@
       <div class="col">
         <label for="filter-category">Filter By Category: </label>
         <select #filter (change)="onSelectedFilter(filter.value)" class="form-select" id="filter-category"
-                aria-label="Default select example">
+                aria-label="Default select example" [disabled]="onSearchMode" >
           <option selected disabled>Choose Category</option>
           <option value="-1">All Post</option>
           <ng-container *ngIf="category$ | async as categories">
