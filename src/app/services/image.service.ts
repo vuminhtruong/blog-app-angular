@@ -31,6 +31,10 @@ export class ImageService {
       formData.append('files', files[i]);
     }
 
-    return this.http.post<Image>(this.baseURL, formData, httpOptions);
+    return this.http.post<Image[]>(this.baseURL, formData, httpOptions);
+  }
+
+  getAllImage() {
+    return this.http.get<Image[]>(this.baseURL);
   }
 }

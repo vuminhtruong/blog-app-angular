@@ -1,28 +1,41 @@
 <div>
   <div class="text-lg-center my-2">
     <form enctype="multipart/form-data">
-      <label for="formFileMultiple" class="form-label text-primary badge ">Upload New Image</label>
+      <label for="formFileMultiple" class="form-label text-warning badge ">Upload New Image</label>
       <input formenctype="multipart/form-data" name="file" class="form-control w-25 mx-auto" type="file" id="formFileMultiple" multiple (change)="uploadImage($event)" />
     </form>
   </div>
-  @if (!onInit) {
-    <ng-container *ngIf="imageUpload$ | async; else loading">
+  @if (on_uploaded) {
+    <ng-container *ngIf="imageUpload$ | async; else loadingUpload">
       <div class="text-center">
         <p class="mx-auto text-center badge bg-success">Image has been uploaded!</p>
       </div>
     </ng-container>
   }
-  <div class="card w-50 text-center mx-auto my-1">
-    <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(15).webp" class="card-img-top" alt="...">
-    <div class="card-body">
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
-  </div>
+  <ng-container *ngIf="!loading; else loadingList">
+    @for (image of imageList; track image.id) {
+      <div class="card w-50 text-center mx-auto my-1 mt-2">
+        <img [src]="'data:' + image.type + ';base64,' + image.data" class="object-fit-cover card-img-top rounded mx-auto d-block" alt="{{image.name}}">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <p class="mx-auto text-center badge bg-success">{{parseDate(image.createAt)}}</p>
+        </div>
+      </div>
+    }
+  </ng-container>
 </div>
 
-<ng-template #loading>
+<ng-template #loadingUpload>
   <div class="d-flex justify-content-center">
     <mat-spinner [diameter]="30"></mat-spinner>
+  </div>
+</ng-template>
+<ng-template #loadingList>
+  <div class="loading-list-container">
+    <h5 class="font-weight-light text-center">Image loading ...</h5>
+    <div class="d-flex justify-content-center">
+      <mat-spinner [diameter]="80" class="mt-5"></mat-spinner>
+    </div>
   </div>
 </ng-template>
 
