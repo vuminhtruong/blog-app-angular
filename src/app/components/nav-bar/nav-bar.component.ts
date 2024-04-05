@@ -9,7 +9,7 @@ import {
   OnInit,
   SimpleChanges
 } from '@angular/core';
-import {faAdd} from "@fortawesome/free-solid-svg-icons";
+import {faAdd, faBlog} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
@@ -25,6 +25,7 @@ import {Post} from "../../model/post";
 })
 export class NavBarComponent implements OnInit {
   iconAdd = faAdd;
+  iconBlog = faBlog;
   user$: Observable<User> | undefined;
   inputSearch: string | undefined;
   postsTemp: Post[] | undefined;

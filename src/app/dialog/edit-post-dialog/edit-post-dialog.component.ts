@@ -40,6 +40,7 @@ export class EditPostDialogComponent implements OnInit {
       value = {...value, ...categoryId}
     }
 
+
     this.postService.editPost(this.data.postId, value).subscribe({
       next: () => {
         alert('Update Successfully!');

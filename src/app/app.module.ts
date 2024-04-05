@@ -26,6 +26,7 @@ import { NewCategoryComponent } from './components/new-category/new-category.com
 import { CommentDialogComponent } from './dialog/comment-dialog/comment-dialog.component';
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
 import { EditPostDialogComponent } from './dialog/edit-post-dialog/edit-post-dialog.component';
+import { ImageLibraryComponent } from './components/image-library/image-library.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { EditPostDialogComponent } from './dialog/edit-post-dialog/edit-post-dia
     CommentDialogComponent,
     DeleteDialogComponent,
     EditPostDialogComponent,
+    ImageLibraryComponent,
   ],
   imports: [
     AppMaterialModule,

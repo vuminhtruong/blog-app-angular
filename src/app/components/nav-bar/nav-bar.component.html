@@ -1,6 +1,10 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-button class="example-button" routerLink="/">Blog App</button>
+    <div class="mx-1"><fa-icon class="fa-2x" [icon]="iconBlog"></fa-icon></div>
+    <div class="mx-2">
+      <button mat-button class="example-button" routerLink="/">All Blog</button>
+      <button mat-button class="example-button mx-2" routerLink="/image-library">Image Library</button>
+    </div>
     <span class="spacer"></span>
     <div class="form-inline mx-2">
       <input #input_search (keyup)="onSearchChange(input_search.value)" class="form-control mr-sm-2 " type="search" placeholder="Search Post" aria-label="Search">

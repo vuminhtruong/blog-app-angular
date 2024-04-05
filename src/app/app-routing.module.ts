@@ -8,6 +8,7 @@ import {RegisterComponent} from "./components/register/register.component";
 import {guard} from "./guard/guard.guard";
 import {UserComponent} from "./components/user/user.component";
 import {NewPostComponent} from "./components/new-post/new-post.component";
+import {ImageLibraryComponent} from "./components/image-library/image-library.component";
 
 const routes: Routes = [
   {path: '', component: BlogCardComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'login',component: LoginComponent, canActivate: [guard]},
   {path: 'register',component: RegisterComponent},
   {path: 'user-detail',component: UserComponent},
-  {path: 'new-post',component: NewPostComponent}
+  {path: 'new-post',component: NewPostComponent},
+  {path: 'image-library', component: ImageLibraryComponent}
 ];
 
 @NgModule({
