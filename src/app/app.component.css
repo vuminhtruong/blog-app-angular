@@ -1,1 +1,11 @@
+.app-component-container {
+  margin-bottom: 20px;
+}
 
+.bottom-footer {
+  background-color: rgb(40, 63, 183);
+}
+
+.name {
+  text-decoration: none;
+}

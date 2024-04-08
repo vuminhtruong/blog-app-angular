@@ -1,6 +1,12 @@
 <div class="app-component">
   <app-nav-bar [loggedIn]="loggedIN" [username]="username"></app-nav-bar>
-  <div>
+  <div class="app-component-container">
     <router-outlet></router-outlet>
+  </div>
+  <div class="footer">
+    <div class="bottom-footer text-center p-3">
+      © 2024 Copyright:
+      <a class="name text-white">Vu Minh Truong</a>
+    </div>
   </div>
 </div>

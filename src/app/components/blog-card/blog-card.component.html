@@ -1,26 +1,31 @@
-<ng-template #loading>
-  <div class="d-flex justify-content-center mt-5">
-    <mat-spinner></mat-spinner>
-  </div>
-</ng-template>
+<div class="blog-card-container" style="min-height: 100vh">
+  <ng-template #loading>
+    <div >
+      <div class="d-flex justify-content-center mt-5">
+        <mat-spinner></mat-spinner>
+      </div>
+    </div>
+  </ng-template>
 
-<ng-template #noData>
-  <h3 class="d-flex justify-content-center font-monospace mt-5">No data found</h3>
-  <div class="text-center">
-    <button type="button" class="btn btn-primary" (click)="onReloadPage()">Reload</button>
-  </div>
-</ng-template>
+  <ng-template #noData>
+    <h3 class="d-flex justify-content-center font-monospace mt-5">No data found</h3>
+    <div class="text-center">
+      <button type="button" class="btn btn-primary" (click)="onReloadPage()">Reload</button>
+    </div>
+  </ng-template>
 
-<ng-container *ngIf="allPosts$ | async as allPosts; else loading">
-  <ng-container *ngIf="allPosts.length > 0 || onSearchMode; else noData">
-    <app-pagination (page)="setPageNumber($event)" [pageSize]="pageSize"
-                    [postLength]="allPosts.length.toString()"></app-pagination>
-    <app-page-size (sizeValue)="getPageSize($event)" (sortBy)="getSortBy($event)"
-                   (filter_category_id)="getFilterCategory($event)" [onSearchMode]="onSearchMode"></app-page-size>
-    <ng-container *ngIf="posts$ | async as posts; else loading">
-      @for (post of posts; track post) {
-        <app-card-element [post]="post"></app-card-element>
-      }
+  <ng-container *ngIf="allPosts$ | async as allPosts; else loading">
+    <ng-container *ngIf="allPosts.length > 0 || onSearchMode; else noData">
+      <app-pagination (page)="setPageNumber($event)" [pageSize]="pageSize"
+                      [postLength]="allPosts.length.toString()"></app-pagination>
+      <app-page-size (sizeValue)="getPageSize($event)" (sortBy)="getSortBy($event)"
+                     (filter_category_id)="getFilterCategory($event)" [onSearchMode]="onSearchMode"></app-page-size>
+      <ng-container *ngIf="posts$ | async as posts; else loading">
+        @for (post of posts; track post) {
+          <app-card-element [post]="post"></app-card-element>
+        }
+      </ng-container>
     </ng-container>
   </ng-container>
-</ng-container>
+</div>
+

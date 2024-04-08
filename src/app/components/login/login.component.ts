@@ -16,7 +16,7 @@ export class LoginComponent {
     this.authService.login(value).subscribe({
       next: () => {
         alert('Login Successfully!');
-        this.router.navigate(['/']).then(data => console.log(data));
+        this.router.navigate(['/']).then();
       },
       error: err => alert('Username or Password is not correct')
     });

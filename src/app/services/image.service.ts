@@ -27,14 +27,30 @@ export class ImageService {
     const files = event.target.files;
     const formData = new FormData();
 
-    for(let i=0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
       formData.append('files', files[i]);
     }
 
     return this.http.post<Image[]>(this.baseURL, formData, httpOptions);
+
+
   }
 
   getAllImage() {
     return this.http.get<Image[]>(this.baseURL);
+  }
+
+  addImageForPost(postId: string, image: Image) {
+    const jwt_token = localStorage.getItem('jwt_token');
+    const headers_object = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + jwt_token
+    });
+
+    const httpOptions = {
+      headers: headers_object
+    };
+
+    return this.http.post<Image>(this.baseURL + '/post/' + postId, image, httpOptions);
   }
 }

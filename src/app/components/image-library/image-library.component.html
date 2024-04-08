@@ -6,9 +6,9 @@
     </form>
   </div>
   @if (on_uploaded) {
-    <ng-container *ngIf="imageUpload$ | async; else loadingUpload">
+    <ng-container *ngIf="fetched; else loadingUpload">
       <div class="text-center">
-        <p class="mx-auto text-center badge bg-success">Image has been uploaded!</p>
+        <p class="mx-auto text-center badge bg-info">Image has been uploaded!</p>
       </div>
     </ng-container>
   }

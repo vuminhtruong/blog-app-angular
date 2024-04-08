@@ -1,23 +1,42 @@
-<div class="card shadow-lg w-50 border-primary mx-auto my-3">
-  <div class="card-body" style="padding: 20px">
-    <div class="row">
-      <div class="col">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <span class="spacer"></span>
-      </div>
-      <div class="col">
-        <ng-container *ngIf="category$ | async as category">
-          <p class="badge text-bg-success float-end" style="width: 70px">{{ category.name }}</p>
-        </ng-container>
+<div class="card card-container shadow-lg w-50 border-primary mx-auto my-3">
+  <div class="row">
+    <div class="col-md-auto">
+      <ng-container *ngIf="post.imageDTO.id; else noImage">
+        <img
+          class="rounded-2"
+          [src]="'data:' + post.imageDTO.type + ';base64,' + post.imageDTO.data"
+          alt="{{post.imageDTO.name}}"
+          width="240"
+          height="240" />
+      </ng-container>
+    </div>
+    <div class="col-lg">
+      <div class="card-body" style="padding: 20px">
+        <div class="row">
+          <div class="col">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <span class="spacer"></span>
+          </div>
+          <div class="col-md-auto">
+            <ng-container *ngIf="category$ | async as category">
+              <p class="badge text-bg-success float-end" style="width: 70px">{{ category.name }}</p>
+            </ng-container>
+          </div>
+        </div>
+        <p class="card-text">{{ post.description }}</p>
+        <mat-divider class="mb-2"></mat-divider>
+        <a class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]"
+           [queryParams]="{category: categoryID}">Read More</a>
       </div>
     </div>
-    <p class="card-text">{{ post.description }}</p>
-    <mat-divider class="mb-2"></mat-divider>
-    <a class="btn btn-primary btn-position-right" [routerLink]="['/post-detail/',post.id]"
-       [queryParams]="{category: categoryID}">Read More</a>
   </div>
 </div>
 
-<!--<ng-template #noCategory>-->
-<!--  <p class="text-secondary">Category not found!</p>-->
-<!--</ng-template>-->
+<ng-template #noImage>
+  <img
+    class="rounded-2"
+    src="assets/no-image.png"
+    alt="no_image"
+    width="240"
+    height="240" />
+</ng-template>

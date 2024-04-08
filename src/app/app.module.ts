@@ -27,6 +27,7 @@ import { CommentDialogComponent } from './dialog/comment-dialog/comment-dialog.c
 import { DeleteDialogComponent } from './dialog/delete-dialog/delete-dialog.component';
 import { EditPostDialogComponent } from './dialog/edit-post-dialog/edit-post-dialog.component';
 import { ImageLibraryComponent } from './components/image-library/image-library.component';
+import { AddImageDialogComponent } from './dialog/add-image-dialog/add-image-dialog.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ImageLibraryComponent } from './components/image-library/image-library.
     DeleteDialogComponent,
     EditPostDialogComponent,
     ImageLibraryComponent,
+    AddImageDialogComponent,
   ],
   imports: [
     AppMaterialModule,

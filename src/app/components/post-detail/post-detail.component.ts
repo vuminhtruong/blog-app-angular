@@ -13,6 +13,8 @@ import {UserService} from "../../services/user.service";
 import {User} from "../../model/user";
 import {DeleteDialogComponent} from "../../dialog/delete-dialog/delete-dialog.component";
 import {EditPostDialogComponent} from "../../dialog/edit-post-dialog/edit-post-dialog.component";
+import {faAdd} from "@fortawesome/free-solid-svg-icons";
+import {AddImageDialogComponent} from "../../dialog/add-image-dialog/add-image-dialog.component";
 
 @Component({
   selector: 'app-post-detail',
@@ -20,9 +22,8 @@ import {EditPostDialogComponent} from "../../dialog/edit-post-dialog/edit-post-d
   styleUrl: './post-detail.component.css'
 })
 export class PostDetailComponent implements OnInit {
+  iconAdd = faAdd;
   postId!: string;
-  private sub1: any;
-  private sub2: any;
   post$!: Observable<Post>;
   comments$: Observable<Comment[]> | undefined;
   category: string | undefined;
@@ -38,11 +39,11 @@ export class PostDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.sub1 = this.activeRoute.params.subscribe(param => {
+    this.activeRoute.params.subscribe(param => {
       this.postId = param['id'];
     })
 
-    this.sub2 = this.activeRoute.queryParams.subscribe(params => {
+    this.activeRoute.queryParams.subscribe(params => {
       this.category = params['category'];
     })
 
@@ -56,11 +57,6 @@ export class PostDetailComponent implements OnInit {
     if (this.category) {
       this.category$ = this.categoryService.getCategoryById(BigInt(this.category));
     }
-  }
-
-  ngOnDestroy(): void {
-    this.sub1.unsubscribe();
-    this.sub2.unsubscribe();
   }
 
   openCommentDialog(enterAnimationDuration: string, exitAnimationDuration: string) {
@@ -97,6 +93,17 @@ export class PostDetailComponent implements OnInit {
         postId: this.postId,
         post: this.post$,
         category: this.category$
+      }
+    })
+  }
+
+  openAddImage(enterAnimationDuration: string, exitAnimationDuration: string) {
+    this.dialog.open(AddImageDialogComponent, {
+      width: '800px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: {
+        postId : this.postId
       }
     })
   }

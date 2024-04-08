@@ -6,6 +6,8 @@ import {Observable} from "rxjs";
 import {state} from "@angular/animations";
 import {UserService} from "../../services/user.service";
 import {User} from "../../model/user";
+import {Image} from "../../model/image";
+import {ImageService} from "../../services/image.service";
 
 @Component({
   selector: 'app-card-element',
@@ -17,7 +19,7 @@ export class CardElementComponent implements OnInit{
   category$: Observable<Category> | undefined;
   categoryID : BigInt | undefined;
 
-  constructor(private categoryService: CategoryService, private userService: UserService) {
+  constructor(private categoryService: CategoryService) {
 
   }
 

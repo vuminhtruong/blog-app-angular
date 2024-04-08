@@ -8,12 +8,30 @@
   <h2 class="blockquote mx-auto w-75 mt-3 font-monospace">No comment found!</h2>
 </ng-template>
 
+<ng-template #noImage>
+  <div class="text-center mt-1">
+    <img src="assets/no-image.png" class="img-thumbnail" style="width: 400px; height: 400px" alt="Responsive image">
+  </div>
+</ng-template>
+
 <div class="detail-container">
   <ng-container *ngIf="post$ | async as post; else loading">
     <mat-card class="my-3 mx-auto mat-elevation-z4 w-75">
       <mat-card-header>
         <mat-card-title>
-          <h1>{{ post.title }}</h1>
+          <div class="row">
+            <div class="col post-title">
+              <h1>{{ post.title }}</h1>
+            </div>
+            <div class="col-md-auto">
+              <ng-container *ngIf="!post.imageDTO.id">
+                <button type="button" class="btn btn-secondary custom-btn" (click)="openAddImage('0','0')">
+                  <fa-icon class="add-icon btn-lg" [icon]="iconAdd"></fa-icon>
+                  Add Picture
+                </button>
+              </ng-container>
+            </div>
+          </div>
         </mat-card-title>
         <span class="spacer"></span>
         <ng-container *ngIf="category$ | async as category">
@@ -25,6 +43,12 @@
       <mat-divider></mat-divider>
       <mat-card-content class="mt-3">
         <div [innerHTML]="post.content"></div>
+        <ng-container *ngIf="post.imageDTO.id; else noImage">
+          <div class="text-center mt-1">
+            <img [src]="'data:' + post.imageDTO.type + ';base64,' + post.imageDTO.data" class="img-thumbnail"
+                 style="width: 400px; height: 400px" alt="{{post.imageDTO.name}}">
+          </div>
+        </ng-container>
       </mat-card-content>
       <mat-card-content class="mt-3">
         <button type="button" class="btn btn-danger" (click)="openDialogDelete('0','0')">Delete</button>
@@ -50,7 +74,9 @@
     </ng-container>
   </ng-container>
   <div class="text-center mt-3">
-    <button type="button" class="btn btn-secondary font-monospace" (click)="openCommentDialog('200ms', '100ms')">New Comment</button>
+    <button type="button" class="btn btn-secondary font-monospace" (click)="openCommentDialog('200ms', '100ms')">New
+      Comment
+    </button>
   </div>
 </div>
 

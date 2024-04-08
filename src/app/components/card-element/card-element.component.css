@@ -1,10 +1,12 @@
 .card-body {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .btn-position-right {
   margin-top: auto;
   align-self: flex-end;
 }
+
+
+

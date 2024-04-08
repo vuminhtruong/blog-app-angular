@@ -13,11 +13,12 @@ import {vi} from 'date-fns/locale';
 })
 export class ImageLibraryComponent implements OnInit, AfterContentChecked {
   on_uploaded!: boolean;
-  imageUpload$: Observable<Image[]> | undefined;
+  // imageUpload$: Observable<Image[]> | undefined;
   imageList: Image[] = [];
   loading!: boolean;
+  fetched: boolean = false;
 
-  constructor(private imageService: ImageService, private sanitizer: DomSanitizer) {
+  constructor(private imageService: ImageService) {
   }
 
   ngOnInit(): void {
@@ -30,9 +31,19 @@ export class ImageLibraryComponent implements OnInit, AfterContentChecked {
 
   uploadImage($event: Event) {
     this.on_uploaded = true;
-    this.imageUpload$ = this.imageService.uploadImage($event);
-    this.imageUpload$.subscribe(value => this.imageList = [...value, ...this.imageList]);
-    this.on_uploaded = false;
+    // this.imageUpload$ = this.imageService.uploadImage($event);
+    // this.imageUpload$.subscribe(value => {
+    //   this.imageList = this.imageList.concat(value);
+    // });
+    this.imageService.uploadImage($event).subscribe(value => {
+        this.imageList = value.concat(this.imageList);
+        this.fetched = true;
+      },
+      error => {
+        alert('You do not have permit!');
+        this.on_uploaded = false;
+      }
+    );
   }
 
   parseDate(date: Date): string {

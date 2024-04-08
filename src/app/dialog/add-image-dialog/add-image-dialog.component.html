@@ -1,0 +1,31 @@
+<div>
+  <h2 mat-dialog-title>Choose Image from Library</h2>
+  <mat-dialog-content>
+    <ng-container *ngIf="loading; else data">
+      <div class="d-flex justify-content-center align-items-center flex-column mt-2">
+        <p>Data is being updated, please wait!</p>
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button class="mat-dialog-button-close" mat-button mat-dialog-close>Exit</button>
+    <button [disabled]="!imageId" (click)="onSubmitImage()" class="mat-dialog-button-close btn btn-warning" mat-button mat-dialog-close>Submit</button>
+  </mat-dialog-actions>
+</div>
+
+<ng-template #data>
+  @for (image of imageList; track image.id) {
+    <div class="d-flex justify-content-center mb-3">
+      <div class="image-card-item card" style="width: 286px" (click)="onSelectImage(image.id)"
+           [ngClass]="{'click' : imageId === image.id}">
+        <img [src]="'data:' + image.type + ';base64,' + image.data" class="rounded object-fit-cover"
+             alt="{{image.name}}" style="width: auto; height: 180px;">
+        <div class="card-body text-center">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+        </div>
+      </div>
+    </div>
+  }
+</ng-template>
