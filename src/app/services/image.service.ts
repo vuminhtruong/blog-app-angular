@@ -14,15 +14,14 @@ export class ImageService {
   }
 
   uploadImage(event: any) {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers_object = new HttpHeaders({
-      // 'Content-Type': 'multipart/form-data',
-      'Authorization': "Bearer " + jwt_token
-    });
-
-    const httpOptions = {
-      headers: headers_object
-    };
+    // const jwt_token = localStorage.getItem('jwt_token');
+    // const headers_object = new HttpHeaders({
+    //   'Authorization': "Bearer " + jwt_token
+    // });
+    //
+    // const httpOptions = {
+    //   headers: headers_object
+    // };
 
     const files = event.target.files;
     const formData = new FormData();
@@ -31,7 +30,7 @@ export class ImageService {
       formData.append('files', files[i]);
     }
 
-    return this.http.post<Image[]>(this.baseURL, formData, httpOptions);
+    return this.http.post<Image[]>(this.baseURL, formData);
 
 
   }
@@ -41,16 +40,16 @@ export class ImageService {
   }
 
   addImageForPost(postId: string, image: Image) {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + jwt_token
-    });
+    // const jwt_token = localStorage.getItem('jwt_token');
+    // const headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': "Bearer " + jwt_token
+    // });
+    //
+    // const httpOptions = {
+    //   headers: headers_object
+    // };
 
-    const httpOptions = {
-      headers: headers_object
-    };
-
-    return this.http.post<Image>(this.baseURL + '/post/' + postId, image, httpOptions);
+    return this.http.post<Image>(this.baseURL + '/post/' + postId, image);
   }
 }

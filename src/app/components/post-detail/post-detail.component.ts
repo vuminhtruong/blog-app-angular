@@ -2,7 +2,7 @@ import {AfterContentChecked, AfterContentInit, Component, DoCheck, Input, OnDest
 import {PostService} from "../../services/post.service";
 import {ActivatedRoute} from "@angular/router";
 import {Post} from "../../model/post";
-import {EMPTY, map, Observable} from "rxjs";
+import {EMPTY, Observable, Subscription} from "rxjs";
 import {Comment} from "../../model/comment";
 import {CommentService} from "../../services/comment.service";
 import {Category} from "../../model/category";
@@ -21,13 +21,15 @@ import {AddImageDialogComponent} from "../../dialog/add-image-dialog/add-image-d
   templateUrl: './post-detail.component.html',
   styleUrl: './post-detail.component.css'
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnInit, OnDestroy {
   iconAdd = faAdd;
   postId!: string;
   post$!: Observable<Post>;
   comments$: Observable<Comment[]> | undefined;
   category: string | undefined;
   category$: Observable<Category> | undefined;
+
+  private subscription: Subscription = new Subscription();
 
   constructor(private activeRoute: ActivatedRoute,
               private postService: PostService,
@@ -39,13 +41,13 @@ export class PostDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe(param => {
+    this.subscription.add(this.activeRoute.params.subscribe(param => {
       this.postId = param['id'];
-    })
+    }));
 
-    this.activeRoute.queryParams.subscribe(params => {
+    this.subscription.add(this.activeRoute.queryParams.subscribe(params => {
       this.category = params['category'];
-    })
+    }));
 
     if (this.postId) {
       this.post$ = this.postService.getPostById(this.postId);
@@ -106,5 +108,9 @@ export class PostDetailComponent implements OnInit {
         postId : this.postId
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

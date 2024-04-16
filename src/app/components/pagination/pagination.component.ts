@@ -1,11 +1,20 @@
-import {Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked
+} from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })
-export class PaginationComponent implements OnInit, OnChanges{
+export class PaginationComponent implements OnInit, OnChanges {
   @Input()
   postLength: string = '1';
 
@@ -60,4 +69,5 @@ export class PaginationComponent implements OnInit, OnChanges{
     this.page.emit('1');
     this.activePage = '1';
   }
+
 }

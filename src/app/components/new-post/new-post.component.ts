@@ -1,19 +1,29 @@
-import {Component, ComponentFactoryResolver, ComponentRef, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {Category} from "../../model/category";
 import {PostService} from "../../services/post.service";
 import {faAdd} from "@fortawesome/free-solid-svg-icons";
 import {NewCategoryComponent} from "../new-category/new-category.component";
 import {Router} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.css'
 })
-export class NewPostComponent implements OnInit{
+export class NewPostComponent implements OnInit, OnDestroy{
   @ViewChild('newCategory', {read: ViewContainerRef}) target: ViewContainerRef | undefined;
+  private subscription: Subscription = new Subscription();
 
   canCreate = true;
   iconAdd = faAdd;
@@ -29,13 +39,26 @@ export class NewPostComponent implements OnInit{
   }
 
   createPost(value: any) {
-    this.postService.createNewPost(value).subscribe({
+    this.subscription.add(this.postService.createNewPost(value).subscribe({
       next: () => {
-        alert('Create Post Successfully!');
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Create Post Successfully!",
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.route.navigate(['/']).then();
       },
-      error: err => alert('Category not set!')
-    });
+      error: err => {
+        Swal.fire({
+        title: 'Error!',
+        text: err.error.message,
+        icon: 'error',
+        confirmButtonText: 'Oke'
+      })
+      }
+    }));
   }
 
   onNewCategory() {
@@ -43,5 +66,9 @@ export class NewPostComponent implements OnInit{
       this.target?.createComponent(NewCategoryComponent);
       this.canCreate = false;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

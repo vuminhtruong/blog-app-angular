@@ -1,47 +1,49 @@
-import {AfterContentChecked, Component, OnInit} from '@angular/core';
+import {AfterContentChecked, Component, OnDestroy, OnInit} from '@angular/core';
 import {ImageService} from "../../services/image.service";
 import {Image} from "../../model/image";
-import {Observable} from "rxjs";
-import {DomSanitizer} from "@angular/platform-browser";
+import {Subscription} from "rxjs";
 import {format, parseISO} from 'date-fns';
 import {vi} from 'date-fns/locale';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-image-library',
   templateUrl: './image-library.component.html',
   styleUrl: './image-library.component.css'
 })
-export class ImageLibraryComponent implements OnInit, AfterContentChecked {
+export class ImageLibraryComponent implements OnInit, AfterContentChecked, OnDestroy {
   on_uploaded!: boolean;
-  // imageUpload$: Observable<Image[]> | undefined;
   imageList: Image[] = [];
   loading!: boolean;
   fetched: boolean = false;
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private imageService: ImageService) {
   }
 
   ngOnInit(): void {
     this.on_uploaded = false;
-    this.imageService.getAllImage().subscribe(value => {
+    this.subscriptions.add(this.imageService.getAllImage().subscribe(value => {
       this.imageList = value;
-    });
+    }));
     this.loading = true;
   }
 
   uploadImage($event: Event) {
     this.on_uploaded = true;
-    // this.imageUpload$ = this.imageService.uploadImage($event);
-    // this.imageUpload$.subscribe(value => {
-    //   this.imageList = this.imageList.concat(value);
-    // });
     this.imageService.uploadImage($event).subscribe(value => {
         this.imageList = value.concat(this.imageList);
         this.fetched = true;
       },
       error => {
-        alert('You do not have permit!');
+        Swal.fire({
+          title: 'Error!',
+          text: 'You do not have access',
+          icon: 'error',
+          confirmButtonText: 'Oke'
+        })
         this.on_uploaded = false;
+        this.fetched = false;
       }
     );
   }
@@ -57,4 +59,7 @@ export class ImageLibraryComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

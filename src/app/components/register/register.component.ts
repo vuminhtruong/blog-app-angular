@@ -1,13 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit, OnDestroy{
+  private subscription: Subscription = new Subscription();
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -16,7 +18,7 @@ export class RegisterComponent implements OnInit{
   }
 
   onSubmit(value: any) {
-    this.authService.register(value).subscribe(value => {
+    this.subscription.add(this.authService.register(value).subscribe(value => {
         if(value === 'User registered successfully') {
           alert('Register Successfully!');
           // data = true
@@ -26,6 +28,10 @@ export class RegisterComponent implements OnInit{
       error => {
         alert('Username or Email already exists!');
       }
-    );
+    ));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

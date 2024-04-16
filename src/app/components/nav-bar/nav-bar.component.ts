@@ -5,31 +5,36 @@ import {
   AfterViewInit,
   Component, DoCheck,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   SimpleChanges
 } from '@angular/core';
+
+import Swal from 'sweetalert2';
+
 import {faAdd, faBlog} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {User} from "../../model/user";
 import {PostService} from "../../services/post.service";
 import {Post} from "../../model/post";
+import {ExportService} from "../../services/export.service";
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit{
   iconAdd = faAdd;
   iconBlog = faBlog;
-  user$: Observable<User> | undefined;
   inputSearch: string | undefined;
   postsTemp: Post[] | undefined;
   posts: Post[] | undefined;
+
+  private subscription: Subscription = new Subscription();
 
   @Input()
   username: string = '';
@@ -40,18 +45,17 @@ export class NavBarComponent implements OnInit {
   isAdmin: boolean = false;
 
 
-  constructor(private authService: AuthService, private router: Router, private userService: UserService, private postService: PostService) {
+  constructor(private authService: AuthService, private userService: UserService, private postService: PostService, private exportService: ExportService, private router: Router) {
 
   }
 
   ngOnInit(): void {
-    this.user$ = this.userService.getUserDetail(this.username);
-    this.postService.getAllPostsWithOutPageSize().subscribe(value => this.postsTemp = value);
+    this.postService.getAllPostsWithOutPageSize().subscribe(value => this.posts = value);
     this.posts = this.postsTemp;
 
     this.userService.isAdmin.subscribe((value) => {
       this.isAdmin = value;
-    })
+    });
 
     this.authService.loggedIn.subscribe((value) => {
       this.loggedIn = value;
@@ -59,7 +63,7 @@ export class NavBarComponent implements OnInit {
 
     this.userService.isLogOut.subscribe(value => {
       this.loggedIn = !value;
-    })
+    });
 
     this.postService.fetchInputSearch().subscribe(value => this.inputSearch = value);
     this.postService.fetchAllPost().subscribe(value => this.postsTemp = value);
@@ -67,14 +71,19 @@ export class NavBarComponent implements OnInit {
 
   onClickNewPost() {
     if (this.isAdmin) {
-      this.router.navigate(['/new-post']).then(value => console.log(value));
+      this.router.navigate(['/new-post']).then();
     } else {
-      alert('Need permit ADMIN');
+      Swal.fire({
+        title: 'Error!',
+        text: 'You do not have access',
+        icon: 'error',
+        confirmButtonText: 'Oke'
+      })
     }
   }
 
   onSearchChange(value: string) {
-    if(value === '') {
+    if (value === '') {
       this.postService.pushInputSearch('Empty Input Search')
     } else {
       this.postService.pushInputSearch(value);
@@ -83,5 +92,9 @@ export class NavBarComponent implements OnInit {
       const pushPost = this.posts.filter(post => post.title.toLowerCase().includes(value.toLowerCase()));
       this.postService.pushAllPost(pushPost);
     }
+  }
+
+  exportDataToPDF() {
+    return this.exportService.getFileReport();
   }
 }

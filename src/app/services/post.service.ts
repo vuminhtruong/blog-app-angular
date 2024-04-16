@@ -50,27 +50,27 @@ export class PostService {
   }
 
   createNewPost(newPost: any) {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + jwt_token
-    });
+    // const jwt_token = localStorage.getItem('jwt_token');
+    // const headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': "Bearer " + jwt_token
+    // });
+    //
+    // const httpOptions = {
+    //   headers: headers_object
+    // };
 
-    const httpOptions = {
-      headers: headers_object
-    };
-
-    return this.http.post(this.baseURL, newPost, httpOptions);
+    return this.http.post(this.baseURL, newPost);
   }
 
   deletePost(id : BigInt) {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + jwt_token
-    });
+    // const jwt_token = localStorage.getItem('jwt_token');
+    // const headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': "Bearer " + jwt_token
+    // });
 
-    return this.http.delete(this.baseURL + '/' + id, {headers: headers_object, responseType: 'text'});
+    return this.http.delete(this.baseURL + '/' + id, {responseType: 'text'});
   }
 
   getAllPostsByCategory(category_id: string): Observable<Post[]> {
@@ -83,16 +83,16 @@ export class PostService {
 
 
   editPost(postId: string, value: any) {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + jwt_token
-    });
+    // const jwt_token = localStorage.getItem('jwt_token');
+    // const headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': "Bearer " + jwt_token
+    // });
+    //
+    // const httpOptions = {
+    //   headers: headers_object
+    // };
 
-    const httpOptions = {
-      headers: headers_object
-    };
-
-    return this.http.put(this.baseURL + '/' + postId, value, httpOptions);
+    return this.http.put(this.baseURL + '/' + postId, value);
   }
 }

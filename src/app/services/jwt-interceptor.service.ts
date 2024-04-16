@@ -9,9 +9,9 @@ export class JwtInterceptorService implements HttpInterceptor{
   constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if(localStorage.getItem('jwt_token')) {
+    if (typeof localStorage !== 'undefined') {
       const jwtToken = localStorage.getItem('jwt_token');
-      if (jwtToken) {
+      if (jwtToken != null) {
         request = request.clone({
           setHeaders: {
             Authorization: `Bearer ${jwtToken}`,
@@ -19,7 +19,6 @@ export class JwtInterceptorService implements HttpInterceptor{
         });
       }
     }
-
     return next.handle(request);
   }
 }

@@ -1,16 +1,15 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, tap} from "rxjs";
+import {tap} from "rxjs";
 import {User} from "../model/user";
-import {response} from "express";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  isAdmin = new EventEmitter<boolean>();
-  is_Admin = false;
   private baseUrl = 'http://localhost:8080/api/user/';
+
+  isAdmin = new EventEmitter<boolean>();
   roles: Set<string> = new Set<string>([]);
   isLogOut = new EventEmitter<boolean>;
 
@@ -26,14 +25,9 @@ export class UserService {
             this.roles.add(value.role);
           })
           this.isAdmin.emit(this.roles.has('ROLE_ADMIN'));
-          this.isAdmin.subscribe((value) => console.log(value));
         }
       )
     );
-  }
-
-  getRole(username: String) {
-    return this.http.get<boolean>(this.baseUrl + username + '/role');
   }
 
   logOut() {

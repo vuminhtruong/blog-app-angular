@@ -1,24 +1,42 @@
-import { Component } from '@angular/core';
-import {NgForm} from "@angular/forms";
+import {Component, OnDestroy} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy{
+  private subscription: Subscription = new Subscription();
+
   constructor(private authService: AuthService, private router: Router) {
   }
 
   onLogin(value: any) {
-    this.authService.login(value).subscribe({
+    this.subscription.add(this.authService.login(value).subscribe({
       next: () => {
-        alert('Login Successfully!');
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
         this.router.navigate(['/']).then();
       },
-      error: err => alert('Username or Password is not correct')
-    });
+      error: err => Swal.fire({
+        title: 'Error!',
+        text: 'User or Password not correct',
+        icon: 'error',
+        confirmButtonText: 'Oke'
+      })
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

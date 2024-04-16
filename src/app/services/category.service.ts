@@ -21,16 +21,16 @@ export class CategoryService {
   }
 
   createCategory(newCategory: any) {
-    const jwt_token = localStorage.getItem('jwt_token');
-    const headers_object = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + jwt_token
-    });
+    // const jwt_token = localStorage.getItem('jwt_token');
+    // const headers_object = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': "Bearer " + jwt_token
+    // });
+    //
+    // const httpOptions = {
+    //   headers: headers_object
+    // };
 
-    const httpOptions = {
-      headers: headers_object
-    };
-
-    return this.http.post(this.baseUrl, newCategory, httpOptions);
+    return this.http.post(this.baseUrl, newCategory);
   }
 }
